@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+Route::controller(FrontendController::class)->group(function(){
+    Route::get('/', 'index')->name('home');
+});
 
 Route::controller(CategoryController::class)->group(function(){
     Route::get('/category', 'index')->name('category.index');

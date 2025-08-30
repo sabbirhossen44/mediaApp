@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,19 @@ class Category extends Model
             if (empty($category->slug)) {
                 $category->slug = Str::slug($category->name);
             }
+        });
+    }
+
+    protected static function  booted()
+    {
+        static::creating(function($model){
+            Cache::forget('categories');
+        });
+        static::updating(function($model){
+            Cache::forget('categories');
+        });
+        static::deleting(function($model){
+            Cache::forget('categories');
         });
     }
 

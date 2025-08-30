@@ -1,4 +1,6 @@
 @extends('Layouts.app')
 @section('content')
-    <h1>Welcome</h1>
+    @foreach ($categories as $index => $category) 
+        <h5>{{$category->name}}</h5>
+    @endforeach
 @endsection
